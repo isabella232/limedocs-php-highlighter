@@ -1,0 +1,108 @@
+<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600,700' rel='stylesheet' type='text/css'><style>
+ 
+.limedocs-highlighter {
+    border: 1px solid #E0E0E0;
+    font-family: 'Source Code Pro';
+    display: inline-block;
+    font-size: 0.75em;
+    white-space: nowrap;
+    padding: 5px;
+    background-color: #1D1F21;
+    color: #C5C8C6;
+}
+
+.limedocs-generic-new-line {
+    content: "\A";
+    white-space: pre;
+}
+.limedocs-generic-whitespace {
+    white-space: pre;
+}
+
+.limedocs-generic-keyword {
+    font-weight: 600;
+    color: #B294BB;
+}
+
+.limedocs-generic-variable {
+    color: #CC6666;
+}
+
+.limedocs-generic-language-string {
+    color: #F0C674
+}
+
+.limedocs-generic-quoted-string {
+    color:#81A2BE;
+}
+
+ 
+</style><div class="limedocs-highlighter"><span class="limedocs-generic-tag">&lt;?php</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">require</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-predefined-constant">__DIR__</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">'/../vendor/autoload.php'</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">use</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">Lime\Highlighter\Highlighter</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">use</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">Lime\Highlighter\Language\PhpLanguage</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">use</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">Lime\Highlighter\Theme\TextmateTheme</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$phpstr</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">file_get_contents</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-predefined-constant">__FILE__</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-comment">//$phpstr = 'echo \'foo &quot;bar&quot; \\\'hey \'';</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$tokens</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">token_get_all</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$phpstr</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">foreach</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$tokens</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-keyword">as</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-keyword">if</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">(</span><span class="limedocs-unknown-element">!is_array($tok))</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">        </span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">[</span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">]</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-keyword">else</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">        </span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">[</span><span class="limedocs-generic-quoted-string">'token_name'</span><span class="limedocs-generic-bracket">]</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">token_name</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">[</span><span class="limedocs-unknown-element">0</span><span class="limedocs-generic-bracket">]</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-comment">//echo json_encode($tok).&quot;\n&quot;;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$h</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-keyword">new</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">Highlighter</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$html</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace">  </span><span class="limedocs-generic-variable">$h</span><span class="limedocs-generic-operator">-&gt;</span><span class="limedocs-generic-language-string">setLanguage</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-keyword">new</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">PhpLanguage</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">-&gt;</span><span class="limedocs-generic-language-string">setTheme</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-keyword">new</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">TextmateTheme</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-quoted-string">'tomorrow/Tomorrow.tmTheme'</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">-&gt;</span><span class="limedocs-generic-language-string">highlight</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$phpstr</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$css</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-unknown-element">&lt;&lt;&lt;CSS</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-language-string">limedocs</span><span class="limedocs-unknown-element">-highlighter</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">border</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-unknown-element">1</span><span class="limedocs-generic-language-string">px</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">solid</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-comment">#E0E0E0;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">font</span><span class="limedocs-unknown-element">-family:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">'Source Code Pro'</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">display</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">inline</span><span class="limedocs-unknown-element">-block;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">font</span><span class="limedocs-unknown-element">-size:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-unknown-element">0.75</span><span class="limedocs-generic-language-string">em</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">white</span><span class="limedocs-unknown-element">-space:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">nowrap</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">padding</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-unknown-element">5</span><span class="limedocs-generic-language-string">px</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">background</span><span class="limedocs-unknown-element">-color:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-comment">#1D1F21;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">color</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-comment">#C5C8C6;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-language-string">limedocs</span><span class="limedocs-unknown-element">-generic-new-line</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">content</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">&quot;\A&quot;</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">white</span><span class="limedocs-unknown-element">-space:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">pre</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-language-string">limedocs</span><span class="limedocs-unknown-element">-generic-whitespace</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">white</span><span class="limedocs-unknown-element">-space:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-language-string">pre</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-language-string">limedocs</span><span class="limedocs-unknown-element">-generic-keyword</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">font</span><span class="limedocs-unknown-element">-weight:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-unknown-element">600</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">color</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-comment">#B294BB;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-language-string">limedocs</span><span class="limedocs-unknown-element">-generic-variable</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">color</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-comment">#CC6666;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-language-string">limedocs</span><span class="limedocs-unknown-element">-generic-language-string</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">color</span><span class="limedocs-unknown-element">:</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-comment">#F0C674</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-language-string">limedocs</span><span class="limedocs-unknown-element">-generic-quoted-string</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-language-string">color</span><span class="limedocs-unknown-element">:#81A2BE;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-language-string">CSS</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">echo</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">&quot;&lt;link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600,700' rel='stylesheet' type='text/css'&gt;&quot;</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">echo</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">&quot;&lt;style&gt;\n $css \n&lt;/style&gt;&quot;</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">echo</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">'&lt;div class=&quot;limedocs-highlighter&quot;&gt;'</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">echo</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-variable">$html</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">echo</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">'&lt;/div&gt;'</span><span class="limedocs-generic-operator">;</span></div>

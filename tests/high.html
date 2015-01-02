@@ -1,0 +1,150 @@
+<link href="http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600,700" rel="stylesheet" type="text/css">
+<style>
+
+.limedocs-highlighter {
+    font-family: 'Source Code Pro';
+    display: block;
+    font-size: 0.75em;
+    color: #C5C8C6;
+    position: relative;
+    overflow: auto;
+    zoom: 1;
+}
+
+.limedocs-line-num a, .limedocs-line-num a:visited {
+    color: #888;
+    text-decoration: none;
+    display: inline-block;
+    text-align: right;
+}
+.limedocs-line-num a:hover {
+    text-decoration: underline;
+}
+
+.limedocs-highlighter > div {
+    box-sizing: border-box;
+}
+
+.limedocs-highlighter-editor {
+    background-color: #1D1F21;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1001;
+    padding: 8px;
+    left: 30px;
+    float: left;
+}
+
+.limedocs-highlighter-gutter {
+    background-color: #E0E0E0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1001;
+    padding: 8px;
+    left: 0px;
+    width: 30px;
+    float: left;
+    border-right: 1px solid #C0C0C0;
+}
+
+.limedocs-generic-new-line {
+    content: "\A";
+    white-space: pre;
+}
+.limedocs-generic-whitespace {
+    white-space: pre;
+}
+
+.limedocs-generic-predefined-constant {
+    color:rgb(205, 143, 0);
+}
+
+.limedocs-generic-keyword {
+    font-weight: 600;
+    color: #B294BB;
+}
+
+.limedocs-generic-variable {
+    color: #CC6666;
+}
+
+.limedocs-generic-language-string {
+    color: #F0C674
+}
+
+.limedocs-generic-function
+{
+    color: #F0C674
+}
+
+.limedocs-generic-heredoc {
+    white-space: pre;
+    color:#81A2BE
+}
+
+.limedocs-generic-quoted-string {
+    color:#81A2BE;
+}
+
+.limedocs-generic-comment {
+    color: #777;
+    white-space: pre;
+}
+
+.limedocs-generic-class,
+.limedocs-generic-namespace {
+    color: #C5C8C6;
+    background:#333;
+}
+</style><div class="limedocs-highlighter"><div class="limedocs-highlighter-gutter"><span class="limedocs-line-num" id="ldn-1"><a href="#ldn-1">1</a></span><br /><span class="limedocs-line-num" id="ldn-2"><a href="#ldn-2">2</a></span><br /><span class="limedocs-line-num" id="ldn-3"><a href="#ldn-3">3</a></span><br /><span class="limedocs-line-num" id="ldn-4"><a href="#ldn-4">4</a></span><br /><span class="limedocs-line-num" id="ldn-5"><a href="#ldn-5">5</a></span><br /><span class="limedocs-line-num" id="ldn-6"><a href="#ldn-6">6</a></span><br /><span class="limedocs-line-num" id="ldn-7"><a href="#ldn-7">7</a></span><br /><span class="limedocs-line-num" id="ldn-8"><a href="#ldn-8">8</a></span><br /><span class="limedocs-line-num" id="ldn-9"><a href="#ldn-9">9</a></span><br /><span class="limedocs-line-num" id="ldn-10"><a href="#ldn-10">10</a></span><br /><span class="limedocs-line-num" id="ldn-11"><a href="#ldn-11">11</a></span><br /><span class="limedocs-line-num" id="ldn-12"><a href="#ldn-12">12</a></span><br /><span class="limedocs-line-num" id="ldn-13"><a href="#ldn-13">13</a></span><br /><span class="limedocs-line-num" id="ldn-14"><a href="#ldn-14">14</a></span><br /><span class="limedocs-line-num" id="ldn-15"><a href="#ldn-15">15</a></span><br /><span class="limedocs-line-num" id="ldn-16"><a href="#ldn-16">16</a></span><br /><span class="limedocs-line-num" id="ldn-17"><a href="#ldn-17">17</a></span><br /><span class="limedocs-line-num" id="ldn-18"><a href="#ldn-18">18</a></span><br /><span class="limedocs-line-num" id="ldn-19"><a href="#ldn-19">19</a></span><br /><span class="limedocs-line-num" id="ldn-20"><a href="#ldn-20">20</a></span><br /><span class="limedocs-line-num" id="ldn-21"><a href="#ldn-21">21</a></span><br /><span class="limedocs-line-num" id="ldn-22"><a href="#ldn-22">22</a></span><br /><span class="limedocs-line-num" id="ldn-23"><a href="#ldn-23">23</a></span><br /><span class="limedocs-line-num" id="ldn-24"><a href="#ldn-24">24</a></span><br /><span class="limedocs-line-num" id="ldn-25"><a href="#ldn-25">25</a></span><br /><span class="limedocs-line-num" id="ldn-26"><a href="#ldn-26">26</a></span><br /><span class="limedocs-line-num" id="ldn-27"><a href="#ldn-27">27</a></span><br /><span class="limedocs-line-num" id="ldn-28"><a href="#ldn-28">28</a></span><br /><span class="limedocs-line-num" id="ldn-29"><a href="#ldn-29">29</a></span><br /><span class="limedocs-line-num" id="ldn-30"><a href="#ldn-30">30</a></span><br /><span class="limedocs-line-num" id="ldn-31"><a href="#ldn-31">31</a></span><br /><span class="limedocs-line-num" id="ldn-32"><a href="#ldn-32">32</a></span><br /><span class="limedocs-line-num" id="ldn-33"><a href="#ldn-33">33</a></span><br /><span class="limedocs-line-num" id="ldn-34"><a href="#ldn-34">34</a></span><br /><span class="limedocs-line-num" id="ldn-35"><a href="#ldn-35">35</a></span><br /><span class="limedocs-line-num" id="ldn-36"><a href="#ldn-36">36</a></span><br /><span class="limedocs-line-num" id="ldn-37"><a href="#ldn-37">37</a></span><br /><span class="limedocs-line-num" id="ldn-38"><a href="#ldn-38">38</a></span><br /><span class="limedocs-line-num" id="ldn-39"><a href="#ldn-39">39</a></span><br /><span class="limedocs-line-num" id="ldn-40"><a href="#ldn-40">40</a></span><br /><span class="limedocs-line-num" id="ldn-41"><a href="#ldn-41">41</a></span><br /><span class="limedocs-line-num" id="ldn-42"><a href="#ldn-42">42</a></span><br /><span class="limedocs-line-num" id="ldn-43"><a href="#ldn-43">43</a></span><br /><span class="limedocs-line-num" id="ldn-44"><a href="#ldn-44">44</a></span><br /><span class="limedocs-line-num" id="ldn-45"><a href="#ldn-45">45</a></span><br /><span class="limedocs-line-num" id="ldn-46"><a href="#ldn-46">46</a></span><br /><span class="limedocs-line-num" id="ldn-47"><a href="#ldn-47">47</a></span><br /><span class="limedocs-line-num" id="ldn-48"><a href="#ldn-48">48</a></span><br /></div><div class="limedocs-highlighter-editor"><span class="limedocs-generic-tag">&lt;?php</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-comment">/**
+ * Multi comment
+ * Bla
+ */</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">require</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-predefined-constant">__DIR__</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">.</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-quoted-string">'/../vendor/autoload.php'</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">use</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-namespace">Lime\Highlighter\Highlighter</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">use</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-namespace">Lime\Highlighter\Language\PhpLanguage</span><span class="limedocs-generic-operator">,</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-namespace">Lime\Highlighter\Theme\LimedocsTheme</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$phpstr</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-function">file_get_contents</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-predefined-constant">__FILE__</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-comment">//$phpstr = 'echo \'foo &quot;bar&quot; \\\'hey \'';</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$tokens</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-function">token_get_all</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$phpstr</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-keyword">foreach</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$tokens</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-keyword">as</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-keyword">if</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-operator">!</span><span class="limedocs-generic-function">is_array</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">        </span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">[</span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">]</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-keyword">else</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-bracket">{</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">        </span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">[</span><span class="limedocs-generic-quoted-string">'token_name'</span><span class="limedocs-generic-bracket">]</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-function">token_name</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$tok</span><span class="limedocs-generic-bracket">[</span><span class="limedocs-unknown-element">0</span><span class="limedocs-generic-bracket">]</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-comment">//echo json_encode($tok).&quot;\n&quot;;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-bracket">}</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$h</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-keyword">new</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-class">Highlighter</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-variable">$html</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-operator">=</span><span class="limedocs-generic-whitespace">  </span><span class="limedocs-generic-variable">$h</span><span class="limedocs-generic-operator">-&gt;</span><span class="limedocs-generic-function">setLanguage</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-keyword">new</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-class">PhpLanguage</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-operator">-&gt;</span><span class="limedocs-generic-function">setTheme</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-keyword">new</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-class">LimedocsTheme</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-quoted-string">'limedocs/basic'</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-whitespace">    </span><span class="limedocs-generic-operator">-&gt;</span><span class="limedocs-generic-function">highlight</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-variable">$phpstr</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-function">file_put_contents</span><span class="limedocs-generic-bracket">(</span><span class="limedocs-generic-quoted-string">'high.html'</span><span class="limedocs-generic-operator">,</span><span class="limedocs-generic-whitespace"> </span><span class="limedocs-generic-variable">$html</span><span class="limedocs-generic-bracket">)</span><span class="limedocs-generic-operator">;</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-comment">/**
+ * Multi comment
+ * Bla
+ */</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-comment">/**
+ * Multi comment
+ * Bla
+ */</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-new-line">
+</span><span class="limedocs-generic-comment">/**
+ * Multi comment
+ * Bla
+ */</span><span class="limedocs-generic-new-line">
+</span></div></div>

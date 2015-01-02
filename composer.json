@@ -1,0 +1,30 @@
+{
+    "name": "limedocs/limedocs-php-highlighter",
+    "type": "library",
+    "description": "A PHP Highlighter",
+    "minimum-stability": "stable",
+    "homepage": "http://limedocs.io",
+    "keywords": ["highlight", "source-highlight", "highlight_source", "highlight_string"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias ETIENNE",
+            "email": "matthias@etienne.in"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/limedocs/limedocs-tokenizer"
+        }
+    ],
+    "require": {
+        "rodneyrehm/plist": "~2.0",
+        "symfony/event-dispatcher": "~2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lime\\Highlighter\\": "lib"
+        }
+    }
+}
