@@ -7,7 +7,9 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Lime\Highlighter\Highlighter;
 use Lime\Highlighter\Language\PhpLanguage,
-    Lime\Highlighter\Theme\LimedocsTheme;
+    Lime\Highlighter\Extension\PhpManualLinksExtension,
+    Lime\Highlighter\Theme\Theme,
+    Lime\Highlighter\Output\OutputHtmlFormat;
 
 $phpstr = file_get_contents(__FILE__);
 //$phpstr = 'echo \'foo "bar" \\\'hey \'';
@@ -22,10 +24,13 @@ foreach ($tokens as $tok) {
     //echo json_encode($tok)."\n";
 }
 
+// really long line really long line really long line really long line really long line really long line really long line really long line really long line really long line really long line really long line really long line
+
 $h = new Highlighter();
-$html =  $h->setLanguage(new PhpLanguage())
-    ->setTheme(new LimedocsTheme('limedocs/basic'))
-    ->highlight($phpstr);
+$html =  $h ->setTheme(new Theme('limedocs/basic'))
+            ->setOutputFormat(new OutputHtmlFormat())
+            ->registerExtension(new PhpManualLinksExtension())
+            ->highlightString($phpstr);
 
 
 file_put_contents('high.html', $html);
@@ -34,14 +39,4 @@ file_put_contents('high.html', $html);
  * Bla
  */
 
-/**
- * Multi comment
- * Bla
- */
-
-
-
-/**
- * Multi comment
- * Bla
- */
+//foo

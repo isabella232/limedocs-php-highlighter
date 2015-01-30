@@ -7,9 +7,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Lime\Highlighter\Formatter;
+namespace Lime\Highlighter\Language\Formatter;
 
-use Lime\Highlighter\Tokenizer\TokenIterator;
+use Lime\Highlighter\Language\Tokenizer\TokenIterator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 interface FormatterInterface {
 
@@ -29,5 +30,22 @@ interface FormatterInterface {
      * @return string
      */
     public function getCssClass($token_code);
+
+
+    /**
+     * Get the container
+     *
+     * @return ContainerBuilder
+     */
+    public function getContainer();
+
+    /**
+     * Set the container
+     *
+     * @param ContainerBuilder $container
+     * @return $this
+     */
+    public function setContainer(ContainerBuilder $container);
+
 
 }

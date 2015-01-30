@@ -7,30 +7,20 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Lime\Highlighter\Tokenizer;
+namespace Lime\Highlighter\Language\Tokenizer;
 
 abstract class Tokenizer implements TokenizerInterface {
 
     protected static $constantsByName;
     protected static $constantsByValue;
 
-    /**
-     * @param  array of [(int|string) token type => (string) pattern]
-     * @param  string  regular expression flags
-     */
-    final public function __construct()
-    {
-    }
-
     public function getTokenizerConstants($by_name = true)
     {
         if (false === isset(self::$constantsByName)) {
             $ref = new \ReflectionClass(get_called_class());
-            //$php_constants = get_defined_constants(true);
-            self::$constantsByName = /*$php_constants['tokenizer'] + */ $ref->getConstants();
+            self::$constantsByName = $ref->getConstants();
             self::$constantsByValue = array_flip(self::$constantsByName);
         }
-
         return $by_name ? self::$constantsByName : self::$constantsByValue;
     }
 
@@ -61,9 +51,8 @@ abstract class Tokenizer implements TokenizerInterface {
         preg_match_all($regex, $source, $tokens, PREG_SET_ORDER);
 
         foreach ($tokens as $match) {
-            $token = $this->cleanMatch($match);
-            $token['offset'] = $len;
-            $len += strlen($token['value']);
+            $token = $this->getToken($match, $len);
+            $len += strlen($token->getValue());
             $final_tokens[] = $token;
         }
 
@@ -77,13 +66,15 @@ abstract class Tokenizer implements TokenizerInterface {
             throw new \RuntimeException("Unexpected '$token' on line $line, column $col. (Source len = ".strlen($source).' - Token length = ' . $len . ')');
         }
 
-        return new TokenIterator($final_tokens);
+        $iterator = new TokenIterator($final_tokens);
+
+        return $iterator;
     }
 
-    protected function cleanMatch($arr) {
+    protected function getToken($arr, $offset) {
         foreach ($arr as $key => $val) {
             if (false === is_int($key) && '' !== $val) {
-                return ['code' => $this->getTokenCode($key), 'name' => $key, 'value' => $val];
+                return new Token($this->getTokenCode($key), $val, $offset);
             }
         }
         return null;

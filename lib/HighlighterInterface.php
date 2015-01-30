@@ -11,8 +11,13 @@ namespace Lime\Highlighter;
 
 use Lime\Highlighter\Extension\ExtensionInterface;
 use Lime\Highlighter\Language\LanguageInterface;
+use Lime\Highlighter\Output\OutputFormatInterface;
 use Lime\Highlighter\Theme\ThemeInterface;
 
+/**
+ * Interface implemented by the Highlighter
+ * @package Lime\Highlighter
+ */
 interface HighlighterInterface {
 
     /**
@@ -36,6 +41,27 @@ interface HighlighterInterface {
      */
     public function setTheme(ThemeInterface $theme);
 
+
+    /**
+     * @return ThemeInterface
+     */
+    public function getTheme();
+
+
+    /**
+     * Set the output format used
+     *
+     * @param OutputFormatInterface $output_format
+     * @return $this
+     */
+    public function setOutputFormat(OutputFormatInterface $output_format);
+
+
+    /**
+     * @return OutputFormatInterface
+     */
+    public function getOutputFormat();
+
     /**
      * Register an extension to be used
      *
@@ -46,28 +72,47 @@ interface HighlighterInterface {
 
 
     /**
-     * Set an option value
+     * Set a parameter value
      *
-     * @param string $optname Option name
-     * @param mixed $optvalue Option value
+     * @param string $name Option name
+     * @param mixed $value Option value
      * @return $this
      */
-    public function setOption($optname, $optvalue);
+    public function setParameter($name, $value);
 
     /**
-     * Set several options in one call
+     * Set several parameters in one call
      *
-     * @param \Traversable $options
+     * @param \Traversable $parameters
      * @return $this
      */
-    public function setOptions(\Traversable $options);
+    public function setParameters(\Traversable $parameters);
+
+    /**
+     * Get the source file if set
+     *
+     * @return string|null
+     */
+    public function getFile();
+
+    /**
+     * Highlight the source code of a file
+     *
+     * @param string $file File path
+     * @return string
+     */
+    public function highlightFile($file);
+
 
     /**
      * Highlight the source code
      *
-     * @param string $source Source code
+     * @param string $string Source code
      * @return string
      */
-    public function highlight($source);
+    public function highlightString($string);
+
+
+    public function hook($hook_type, $value);
 
 }

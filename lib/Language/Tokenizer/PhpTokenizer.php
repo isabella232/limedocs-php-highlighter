@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Lime\Highlighter\Tokenizer;
+namespace Lime\Highlighter\Language\Tokenizer;
 
 /**
  * Php Tokenzier
@@ -17,7 +17,7 @@ class PhpTokenizer extends Tokenizer {
     const T_SEMICOLON               = 10001;
     const T_OPERATOR                = 10002;
     const T_KEYWORD                 = 10003;
-    const T_PREDEFINED_CONSTANT     = 10004;
+    const T_MAGIC_CONSTANT          = 10004;
     const T_CASTING                 = 10005;
     const T_BRACKET                 = 10006;
     const T_SIMPLE_QUOTED_STRING    = 10007;
@@ -30,6 +30,8 @@ class PhpTokenizer extends Tokenizer {
     const T_NAMESPACE               = 10016;
     const T_FUNCTION                = 10017;
     const T_CLASS                   = 10018;
+    const T_PREDEFINED_CONSTANT     = 10019;
+    const T_USER_CONSTANT           = 10020;
 
 
     /**
@@ -113,7 +115,7 @@ class PhpTokenizer extends Tokenizer {
             'yield'
         );
 
-        $predefined_constants = array(
+        $magic_constants = array(
             '__CLASS__',
             '__DIR__',
             '__FILE__',
@@ -123,6 +125,9 @@ class PhpTokenizer extends Tokenizer {
             '__NAMESPACE__',
             '__TRAIT__'
         );
+
+        $all_constants = get_defined_constants(true);
+        $php_constants = array_keys($all_constants['Core']);
 
         $operators = array(
             '&=',
@@ -174,7 +179,6 @@ class PhpTokenizer extends Tokenizer {
         $brackets = ['{', '}', '(', ')', '[', ']'];
         $new_lines = ["\n", "\r\n"];
 
-        $multiline_comment = '/\*\*?\s*((?:(?!\*/)[\s\S]+))\*/';
         $multiline_comment = '(?P<T_MULTILINE_COMMENT>(/\*\*((?:(?!\*/)[\s\S])*)\*/))';
         $oneline_comment = '((#|//)[^\r\n]*)';
 
@@ -194,8 +198,6 @@ class PhpTokenizer extends Tokenizer {
 
             self::T_HEREDOC => '(?P<T_HEREDOC>(<<<\'?([\w]+)\'?[\r\n]+([\s\S]+)(\g-3)))(?=;)',
 
-
-
             // Brackets
             self::T_BRACKET => $this->getArrayMask($brackets, self::T_BRACKET),
 
@@ -203,7 +205,11 @@ class PhpTokenizer extends Tokenizer {
             self::T_KEYWORD => $this->getArrayMask($keywords, self::T_KEYWORD),
 
             // Predefiend contants
-            self::T_PREDEFINED_CONSTANT => $this->getArrayMask($predefined_constants, self::T_PREDEFINED_CONSTANT),
+            self::T_MAGIC_CONSTANT => $this->getArrayMask($magic_constants, self::T_MAGIC_CONSTANT),
+
+            self::T_PREDEFINED_CONSTANT => $this->getArrayMask($php_constants, self::T_PREDEFINED_CONSTANT),
+
+            self::T_USER_CONSTANT =>$this->getNamedExpression('[A-Z_]+', self::T_USER_CONSTANT, false),
 
             // assignment operators & logical operators
             self::T_OPERATOR => $this->getArrayMask($operators, self::T_OPERATOR),
@@ -259,5 +265,37 @@ class PhpTokenizer extends Tokenizer {
     protected function sortByLengthDesc($a, $b){
         return strlen($b) - strlen($a);
     }
+
+    public function tokenize($source)
+    {
+        $iterator = parent::tokenize($source);
+
+        foreach($iterator as $token) {
+            /** @var \Lime\Highlighter\Language\Tokenizer\TokenInterface $token */
+            if($token->getType() === PhpTokenizer::T_OTHER_STRING) {
+
+                // Check a namespace name
+                if ($iterator->isAfter('namespace', ["\n", ";"], []) or $iterator->isAfter('use', [";", 'function'])) {
+                    $token->setType(PhpTokenizer::T_NAMESPACE);
+                }
+                elseif ($iterator->isAfter('new', [], [" "]) || $iterator->isBefore('::', [], [" ", "\n", "\r", "\t"])) {
+                    $token->setType(PhpTokenizer::T_CLASS);
+                }
+                elseif ($iterator->isAfter('function', [";", "\n"], [])) {
+                    $token->setType(PhpTokenizer::T_FUNCTION);
+                }
+                elseif ($iterator->isBefore('(', [], [" "])) {
+                    $token->setType(PhpTokenizer::T_FUNCTION);
+                }
+            }
+
+            //$element = ['class' => $this->getCssClass($el['code']), 'value' => $el['value']];
+            //$elements[] = $this->getContainer()->get('highlighter')->hook('element.create', $element);
+        }
+
+        var_dump($iterator->getTokens());
+        exit;
+    }
+
 
 }

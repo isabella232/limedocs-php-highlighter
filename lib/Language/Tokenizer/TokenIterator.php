@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Lime\Highlighter\Tokenizer;
+namespace Lime\Highlighter\Language\Tokenizer;
 
 /**
  * TokenIterator
@@ -18,20 +18,19 @@ class TokenIterator implements \SeekableIterator {
      * @var array
      */
     protected $tokens;
-
     private $chekpoints = [];
     private $position = 0;
 
-    /**
-     * Be carefull, these contants correponds to token keys ! no not change !!
-     */
-    const BREAK_ON_TOKEN_CODE   = 'code';
-    const BREAK_ON_TOKEN_VALUE  = 'value';
 
     public function __construct(array $tokens)
     {
         $this->tokens = $tokens;
         $this->position = 0;
+    }
+
+    public function getTokens()
+    {
+        return $this->tokens;
     }
 
     public function rewind() {
@@ -53,18 +52,20 @@ class TokenIterator implements \SeekableIterator {
     }
 
     public function nextTokenOfType($token_type) {
-        do {
-            $next = $this->next();
-        } while($next && $next['code'] != $token_type);
-        return $next;
+        return $this->mTokenOfType($token_type, false);
     }
 
     public function prevTokenOfType($token_type) {
-        do {
-            $prev = $this->prev();
-        } while($prev && $prev['code'] != $token_type);
+        return $this->mTokenOfType($token_type, true);
+    }
 
-        return $prev;
+    private function mTokenOfType($token_type, $prev = false) {
+        $method = $prev ? 'prev' : 'next';
+        do {
+            $tok = $this->$method();
+        } while($tok && $tok->getType() != $token_type);
+
+        return $tok;
     }
 
     public function addCheckpoint($label)
@@ -88,7 +89,6 @@ class TokenIterator implements \SeekableIterator {
     {
         $pos = $this->key();
         $method = $reverse ? 'next' : 'prev';
-        $global_method = $reverse ? 'isBefore' : 'isAfter';
         $found = false;
 
         if (false === is_array($after_token_types)) {
@@ -108,31 +108,24 @@ class TokenIterator implements \SeekableIterator {
         do {
             $current = $this->current();
 
-            if (in_array($current['code'], $after_token_types, true) || in_array($current['value'], $after_token_types, true)) {
-                //echo "$global_method : found " . $current['code'] . " / " . $current['value']."\n";
+            if (in_array($current->getType(), $after_token_types, true) || in_array($current->getValue(), $after_token_types, true)) {
                 $found = $current;
                 break;
-            } else {
-                //echo "$global_method : '{$current['value']}' not matching ".json_encode($after_token_types)." \n";
             }
 
-            if (in_array($current['code'], $break_on, true) || in_array($current['value'], $break_on, true)) {
-                //echo "$global_method : Breaking on  '" . $current['value']."'\n";
+            if (in_array($current->getType(), $break_on, true) || in_array($current->getValue(), $break_on, true)) {
                 break;
-            } else{
-                //echo "$global_method : Not breaking on '" . $current['value']."'\n";
             }
 
-            if (count($break_on_not) && (!in_array($current['code'], $break_on_not, true) && !in_array($current['value'], $break_on_not, true))) {
-                //echo "$global_method : Breaking on NOT '" . $current['value']."' ".json_encode($break_on_not)."\n";
+            if (count($break_on_not) && (!in_array($current->getType(), $break_on_not, true) && !in_array($current->getValue(), $break_on_not, true))) {
                 break;
-            } else{
-                //echo "$global_method : Not breaking on NOT  '" . $current['value']."'\n";
             }
 
         } while($this->$method());
 
+        // return to the previous position
         $this->seek($pos);
+
         return $found;
     }
 
@@ -164,7 +157,6 @@ class TokenIterator implements \SeekableIterator {
         $this->position = $position;
         return $this->current();
     }
-
 
     function valid() {
         return isset($this->tokens[$this->position]);

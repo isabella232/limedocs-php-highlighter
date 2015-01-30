@@ -9,12 +9,14 @@
  */
 namespace Lime\Highlighter\Theme;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
 interface ThemeInterface {
 
     /**
      * Configure the theme by parsing the theme file
      *
-     * @return void
+     * @return $this
      */
     public function configure();
 
@@ -63,13 +65,21 @@ interface ThemeInterface {
      */
     public function getProperties();
 
-    public function getStyle();
+    /**
+     * Get the container
+     *
+     * @return ContainerBuilder
+     */
+    public function getContainer();
 
-    public function setStyle($style);
+    /**
+     * Set the container
+     *
+     * @param ContainerBuilder $container
+     * @return $this
+     */
+    public function setContainer(ContainerBuilder $container);
 
-    public function getExternalStylesheets();
-
-    public function setExternalStylesheets($stylesheets);
 
 
 }

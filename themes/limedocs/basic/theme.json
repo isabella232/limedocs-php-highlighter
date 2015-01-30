@@ -8,8 +8,68 @@
             }
         ]
     },
+
+    "extends" : "",
+
     "external_stylesheets" : [
         "http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600,700"
-    ]
+    ],
 
+    "assets" : {
+        "fonts" : [
+            "SourceCodePro/SourceCodePro-Regular.ttf",
+            "SourceCodePro/SourceCodePro-Semibold.ttf"
+        ]
+    },
+
+    "theme" : {
+
+        "limedocs-highlighter" : {
+            "font-family" : "'Source Code Pro', 'Monaco', 'Inconsolata', 'Consolas', monospace",
+            "background" : "#1D1F21",
+            "color" : "#C5C8C6"
+        },
+
+        "limedocs-highlighter-gutter" : {
+            "background" : "#E0E0E0",
+            "color" : "#888"
+        },
+
+        "limedocs-line-layer-highlighted" : {
+            "background" : "#111"
+        },
+
+        "limedocs-generic-predefined-constant" : {
+            "color" : "rgb(205, 143, 0)"
+        },
+
+        "limedocs-generic-keyword" : {
+            "font-weight" : 600,
+            "color" : "#B294BB"
+        },
+        "limedocs-generic-variable" : {
+            "color" : "#CC6666"
+        },
+        "limedocs-generic-language-string" : {
+            "color" : "#F0C674"
+        },
+        "limedocs-generic-function" : {
+            "color" :  "#F0C674"
+        },
+        "limedocs-generic-heredoc" : {
+            "color" : "#81A2BE"
+        },
+        "limedocs-generic-quoted-string" : {
+            "color" : "#81A2BE"
+        },
+        "limedocs-generic-comment" : {
+            "color" : "#777"
+        },
+        "limedocs-generic-class" : {
+            "color" : "#C5C8C6"
+        },
+        "limedocs-generic-namespace" : {
+            "color" : "#C5C8C6"
+        }
+    }
 }

@@ -7,33 +7,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Lime\Highlighter\Extension;
+namespace Lime\Highlighter\Output;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-interface ExtensionInterface {
+interface OutputFormatInterface {
 
-    /**
-     * Return the extension name
-     *
-     * @return string
-     */
     public function getName();
 
+    public function getMimeType();
 
-    public function getHooks();
-
-    public function hasHook($hook_type);
-
-    public function callHook($hook_type, $value);
-
-
-    /**
-     * Return the extension version
-     *
-     * @return string
-     */
-    public function getVersion();
+    public function getContent(array $elements, $lines);
 
     /**
      * Get the container
@@ -49,5 +33,6 @@ interface ExtensionInterface {
      * @return $this
      */
     public function setContainer(ContainerBuilder $container);
+
 
 }

@@ -20,7 +20,8 @@
     ],
     "require": {
         "rodneyrehm/plist": "~2.0",
-        "symfony/event-dispatcher": "~2.6"
+        "symfony/event-dispatcher": "~2.6",
+        "symfony/dependency-injection": "~2.6"
     },
     "autoload": {
         "psr-4": {

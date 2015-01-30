@@ -7,10 +7,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Lime\Highlighter\Formatter;
+namespace Lime\Highlighter\Language\Formatter;
 
-use Lime\Highlighter\Tokenizer\PhpTokenizer;
-use Lime\Highlighter\Tokenizer\TokenIterator;
+use Lime\Highlighter\Language\Tokenizer\PhpTokenizer;
+use Lime\Highlighter\Language\Tokenizer\TokenIterator;
 
 class PhpFormatter extends Formatter {
 
@@ -18,7 +18,7 @@ class PhpFormatter extends Formatter {
 
     public function __construct()
     {
-        $this->quickref = include(__DIR__ . '/../../config/quickref-php.php');
+        $this->quickref = include(__DIR__ . '/../../../config/quickref-php.php');
     }
 
     public function format(TokenIterator $tokenIterator)
@@ -34,23 +34,20 @@ class PhpFormatter extends Formatter {
                     or $tokenIterator->isAfter('use', [";", 'function'])
                 ) {
                     $el['code'] = PhpTokenizer::T_NAMESPACE;
-                    $el['name'] = 'T_NAMESPACE';
                 }
                 elseif ($tokenIterator->isAfter('new', [], [" "]) || $tokenIterator->isBefore('::', [], [" ", "\n", "\r", "\t"])) {
                     $el['code'] = PhpTokenizer::T_CLASS;
                 }
-
                 elseif ($tokenIterator->isAfter('function', [";", "\n"], [])) {
                     $el['code'] = PhpTokenizer::T_FUNCTION;
-                    $el['name'] = 'T_FUNCTION';
                 }
                 elseif ($tokenIterator->isBefore('(', [], [" "])) {
                     $el['code'] = PhpTokenizer::T_FUNCTION;
-                    $el['name'] = 'T_FUNCTION';
                 }
             }
 
-            $elements[] = ['class' => $this->getCssClass($el['code']), 'value' => $el['value']];
+            $element = ['class' => $this->getCssClass($el['code']), 'value' => $el['value']];
+            $elements[] = $this->getContainer()->get('highlighter')->hook('element.create', $element);
             $tokenIterator->next();
         }
         return $elements;
@@ -68,7 +65,9 @@ class PhpFormatter extends Formatter {
             PhpTokenizer::T_MULTILINE_COMMENT => 'limedocs-generic-comment',
             PhpTokenizer::T_ONELINE_COMMENT => 'limedocs-generic-comment',
             PhpTokenizer::T_BRACKET => 'limedocs-generic-bracket',
+            PhpTokenizer::T_MAGIC_CONSTANT => 'limedocs-generic-magic-constant',
             PhpTokenizer::T_PREDEFINED_CONSTANT => 'limedocs-generic-predefined-constant',
+            PhpTokenizer::T_USER_CONSTANT => 'limedocs-generic-user-constant',
             PhpTokenizer::T_SIMPLE_QUOTED_STRING => 'limedocs-generic-quoted-string',
             PhpTokenizer::T_DOUBLE_QUOTED_STRING => 'limedocs-generic-quoted-string',
             PhpTokenizer::T_VARIABLE => 'limedocs-generic-variable',

@@ -11,9 +11,16 @@ namespace Lime\Highlighter;
 
 use Lime\Highlighter\Extension\ExtensionInterface;
 use Lime\Highlighter\Language\LanguageInterface;
+use Lime\Highlighter\Language\PhpLanguage;
+use Lime\Highlighter\Output\OutputFormatInterface;
 use Lime\Highlighter\Theme\ThemeInterface;
-use Lime\Highlighter\Tokenizer\Tokenizer;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Main highlighter class
+ *
+ * @package Lime\Highlighter
+ */
 class Highlighter implements HighlighterInterface {
 
     /**
@@ -27,6 +34,11 @@ class Highlighter implements HighlighterInterface {
     protected $theme;
 
     /**
+     * @var \Lime\Highlighter\Output\OutputFormatInterface
+     */
+    protected $outputFormat;
+
+    /**
      * @var array
      */
     protected $extensions = [];
@@ -37,11 +49,30 @@ class Highlighter implements HighlighterInterface {
     protected $options = [];
 
     /**
+     * @var \Symfony\Component\DependencyInjection\ContainerBuilder
+     */
+    protected $container;
+
+    protected $file;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->container = new ContainerBuilder();
+        $this->container->set('highlighter', $this);
+        $this->language = (new PhpLanguage())->setContainer($this->container);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function setLanguage(LanguageInterface $language)
     {
         $this->language = $language;
+        $this->language->setContainer($this->container);
         return $this;
     }
 
@@ -53,12 +84,49 @@ class Highlighter implements HighlighterInterface {
         return $this->language;
     }
 
+    public function hook($hook_type, $value)
+    {
+        foreach ($this->extensions as $ext) {
+            if($ext->hasHook($hook_type)) {
+                $value = $ext->callHook($hook_type, $value);
+            }
+        }
+        return $value;
+    }
+
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOutputFormat(OutputFormatInterface $output_format)
+    {
+        $this->outputFormat = $output_format;
+        $this->outputFormat->setContainer($this->container);
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOutputFormat()
+    {
+        return $this->outputFormat;
+    }
+
+    /**
+     * @return ThemeInterface
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function setTheme(ThemeInterface $theme)
     {
-        $this->theme = $theme;
+        $this->theme = $theme->setContainer($this->container)->configure();
         return $this;
     }
 
@@ -67,40 +135,58 @@ class Highlighter implements HighlighterInterface {
      */
     public function registerExtension(ExtensionInterface $extension)
     {
-        $this->extensions[$extension->getName()] = $extension;
+        $this->extensions[$extension->getName()] = $extension->setContainer($this->container);
         return $this;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see setOptions()
+     * @see setParameters()
      */
-    public function setOption($optname, $optvalue)
+    public function setParameter($name, $value)
     {
-        $this->options[$optname] = $optvalue;
+        $this->container->setParameter($name, $value);
         return $this;
     }
 
     /**
      * {@inheritdoc}
      *
-     * @see setOption()
+     * @see setParameter()
      */
-    public function setOptions(\Traversable $options)
+    public function setParameters(\Traversable $parameters)
     {
-        foreach($options as $optname => $optvalue) {
-            $this->setOption($optname, $optvalue);
+        foreach($parameters as $name => $value) {
+            $this->setParameter($name, $value);
         }
         return $this;
     }
 
     /**
+     * Highlight the source code of a file
+     *
+     * @param string $file File path
+     * @return string
+     */
+    public function highlightFile($file)
+    {
+        $this->file = $file;
+        return $this->highlightSource(file_get_contents($file));
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+
+    /**
      * {@inheritdoc}
      */
-    public function highlight($source)
+    public function highlightString($string)
     {
-        if (false === is_string($source)) {
+        if (false === is_string($string)) {
             throw new \DomainException('$source must be a string.');
         }
 
@@ -116,32 +202,10 @@ class Highlighter implements HighlighterInterface {
             );
         }
 
-        $lines = count(explode("\n", $source));
-        $iterator = $this->language->getTokenizer()->tokenize($source);
+        $lines = count(explode("\n", $string));
+        $iterator = $this->language->getTokenizer()->tokenize($string);
         $elements = $this->language->getFormatter()->format($iterator);
-
-        $html = '';
-
-        foreach ($this->theme->getExternalStylesheets() as $stylesheet)
-        {
-            $html .= '<link href="'.$stylesheet.'" rel="stylesheet" type="text/css">'."\n";
-        }
-
-        $html .= "<style>\n".$this->theme->getStyle()."\n</style>";
-        $html .= '<div class="limedocs-highlighter">';
-        $html .= '<div class="limedocs-highlighter-gutter">';
-        for ($i = 1; $i<=$lines; $i++) {
-            $html .= '<span class="limedocs-line-num" id="ldn-'.$i.'"><a href="#ldn-'.$i.'">'.$i.'</a></span><br />';
-        }
-        $html .= '</div>';
-        $html .= '<div class="limedocs-highlighter-editor">';
-
-        foreach ($elements as $element) {
-            $html .= '<span class="'.$element['class'].'">'.htmlentities($element['value']).'</span>';
-        }
-
-        $html .= '</div>';
-        $html .= '</div>';
+        $html = $this->outputFormat->getContent($elements, $lines);
 
         return $html;
 

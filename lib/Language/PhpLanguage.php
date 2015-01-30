@@ -9,18 +9,13 @@
  */
 namespace Lime\Highlighter\Language;
 
-use Lime\Highlighter\Formatter\PhpFormatter;
-use Lime\Highlighter\Tokenizer\PhpTokenizer;
+use Lime\Highlighter\Language\Formatter\PhpFormatter;
+use Lime\Highlighter\Language\Tokenizer\PhpTokenizer;
 
 /**
  * Class PhpLanguage
  */
-class PhpLanguage implements LanguageInterface {
-
-    public function __construct()
-    {
-
-    }
+class PhpLanguage extends Language {
 
     public function getTokenizer()
     {
@@ -29,8 +24,6 @@ class PhpLanguage implements LanguageInterface {
 
     public function getFormatter()
     {
-        return new PhpFormatter();
+        return (new PhpFormatter())->setContainer($this->getContainer());
     }
-
-
 }

@@ -1,0 +1,183 @@
+
+.limedocs-highlighter {
+    font-family: limedocs-highlighter.font-family;
+    font-size: 0.78em;
+    line-height: 1.6;
+    display: block;
+    position: relative;
+    background-color: limedocs-highlighter.background;
+    color: limedocs-highlighter.color;
+    zoom: 1;
+}
+
+.limedocs-highlighter-table {
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    font-size: inherit;
+    color: inherit;
+    line-height: inherit;
+}
+
+.limedocs-highlighter-table-gutter,
+.limedocs-highlighter-table-content {
+    position: relative;
+    color: inherit;
+    line-height: inherit;
+}
+
+.limedocs-highlighter-table-content {
+    overflow-x: auto;
+    overflow-y: visible;
+    max-height: none;
+
+}
+
+.limedocs-highlighter-table-gutter {
+    width: 30px;
+    background: limedocs-highlighter-gutter.background;
+    padding-bottom: 13px;
+
+}
+
+.limedocs-line-num {
+    display: block;
+    text-align: right;
+    padding-right: 2px;
+    font-size: 100%;
+    width: 100%;
+}
+
+.limedocs-line-num a, .limedocs-line-num a:visited {
+    text-decoration: none;
+    display: inline-block;
+    text-align: right;
+    color: inherit;
+    line-height: inherit;
+}
+
+.limedocs-line-num a:hover {
+    text-decoration: underline;
+}
+
+.limedocs-highlighter > div {
+    box-sizing: border-box;
+}
+
+.limedocs-highlighter-editor,
+.limedocs-highlighter-lines-layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1001;
+    padding: 4px 8px;
+    color:inherit;
+}
+
+/*
+.limedocs-highlighter-editor
+{
+    overflow-x: auto;
+    overflow-y: hidden;
+}*/
+
+.limedocs-highlighter-lines-layer {
+    background-color: transparent;
+    padding: 4px 0;
+    z-index: 1000;
+}
+
+.limedocs-line-layer {
+    display: block;
+}
+
+.limedocs-line-layer:after {
+    content: "\00a0";
+}
+
+.limedocs-line-layer-highlighted {
+    background: limedocs-line-layer-highlighted.background;
+}
+
+.limedocs-highlighter-gutter {
+    background: limedocs-highlighter-gutter.background;
+    color:limedocs-highlighter-gutter.color;
+    z-index: 1001;
+    padding: 4px 8px;
+    width: 30px;
+}
+
+.limedocs-generic-new-line {
+    content: "\A";
+    white-space: pre;
+}
+
+
+.limedocs-highlighter .limedocs-generic-new-line:last-child:after {
+    content: " ";
+}
+
+.limedocs-highlighter-editor a, .limedocs-highlighter-editor a:visited {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.limedocs-highlighter-editor a:hover {
+    border-bottom: 1px solid;
+}
+
+.limedocs-line-layer:nth-child(even) {
+
+}
+
+
+.limedocs-generic-whitespace {
+    white-space: pre;
+}
+
+.limedocs-generic-predefined-constant {
+    color:limedocs-generic-predefined-constant.color;
+}
+
+.limedocs-generic-keyword {
+    font-weight: limedocs-generic-keyword.font-weight;
+    color: limedocs-generic-keyword.color;
+}
+
+.limedocs-generic-variable {
+    color: limedocs-generic-variable.color
+}
+
+.limedocs-generic-language-string {
+    color: limedocs-generic-language-string.color
+}
+
+.limedocs-generic-function {
+    color: limedocs-generic-function.color
+}
+
+.limedocs-generic-heredoc {
+    white-space: pre;
+    color:limedocs-generic-heredoc.color
+}
+
+.limedocs-generic-quoted-string {
+    color:limedocs-generic-quoted-string.color;
+}
+
+.limedocs-generic-comment {
+    color: limedocs-generic-comment.color;
+    white-space: pre;
+}
+
+.limedocs-generic-class {
+    color: limedocs-generic-class.color;
+}
+
+.limedocs-generic-namespace {
+    color: limedocs-generic-namespace.color;
+}

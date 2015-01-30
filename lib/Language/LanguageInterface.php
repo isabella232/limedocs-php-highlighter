@@ -9,19 +9,31 @@
  */
 namespace Lime\Highlighter\Language;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+
 /**
- * Interface LanguageInterface
+ * Class LanguageInterface
  */
 interface LanguageInterface {
 
-    /**
-     * @return \Lime\Highlighter\Tokenizer\TokenizerInterface
-     */
+
     public function getTokenizer();
+    public function getFormatter();
 
     /**
-     * @return \Lime\Highlighter\Formatter\FormatterInterface
+     * Get the container
+     *
+     * @return ContainerBuilder
      */
-    public function getFormatter();
+    public function getContainer();
+
+    /**
+     * Set the container
+     *
+     * @param ContainerBuilder $container
+     * @return $this
+     */
+    public function setContainer(ContainerBuilder $container);
+
 
 }

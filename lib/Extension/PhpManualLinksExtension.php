@@ -9,40 +9,56 @@
  */
 namespace Lime\Highlighter\Extension;
 
-use Symfony\Component\EventDispatcher\Event;
-
 class PhpManualLinksExtension extends Extension {
+
     /**
-     * Returns an array of event names this subscriber wants to listen to.
-     *
-     * The array keys are event names and the value can be:
-     *
-     *  * The method name to call (priority defaults to 0)
-     *  * An array composed of the method name to call and the priority
-     *  * An array of arrays composed of the method names to call and respective
-     *    priorities, or 0 if unset
-     *
-     * For instance:
-     *
-     *  * array('eventName' => 'methodName')
-     *  * array('eventName' => array('methodName', $priority))
-     *  * array('eventName' => array(array('methodName1', $priority), array('methodName2'))
-     *
-     * @return array The event names to listen to
-     *
-     * @api
+     * @var array
      */
-    public static function getSubscribedEvents()
+    private $quickref;
+
+    public function __construct() {
+        $this->quickref = include(__DIR__ . '/../../config/quickref-php.php');
+    }
+
+    /**
+     * Return the extension name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return 'PHP Manual links';
+    }
+
+    public function getVersion()
+    {
+        return '0.1';
+    }
+
+    public function getHooks()
     {
         return [
-            'element.create' => array('onCreateElement')
+            'element.create' => function($element) {
+                if($element['class'] === 'limedocs-generic-function') {
+                    $native = isset($this->quickref[$element['value']]) ? $this->quickref[$element['value']] : false;
+                    if ($native) {
+                        $element['link'] = 'http://php.net/manual/en/'.$native['file'];
+                        $element['title'] = $element['value'].': '.$native['desc'];
+                    }
+                } elseif ($element['class'] === 'limedocs-generic-predefined-constant') {
+                    $element['link'] = 'http://php.net/manual/en/reserved.constants.php';
+                    $element['title'] = 'Predefined constant';
+                } elseif ($element['class'] === 'limedocs-generic-magic-constant') {
+                    $element['link'] = 'http://php.net/manual/en/language.constants.predefined.php';
+                    $element['title'] = 'Magic constant';
+                }
+                    return $element;
+            }
+
         ];
     }
 
-    public function onCreateElement(Event $event)
-    {
-        // ...
-    }
+
 
 
 }
